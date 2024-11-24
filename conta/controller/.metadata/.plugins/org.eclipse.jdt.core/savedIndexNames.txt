@@ -1,0 +1,1 @@
+INDEX VERSION 1.134+C:\Workspace\conta\src\conta\controller\.metadata\.plugins\org.eclipse.jdt.core

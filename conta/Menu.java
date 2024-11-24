@@ -11,7 +11,7 @@ import conta.model.ContaPoupanca;
 
 public class Menu {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
 		ContaController contas = new ContaController();
 
@@ -19,7 +19,7 @@ public class Menu {
 
 		int opcao, numero, agencia, tipo, aniversario, numeroDestino = 0;
 		String titular;
-		float saldo, limite, valor = 0;
+		float saldo, limite, valor;
 
 		while (true) {
 
@@ -81,13 +81,17 @@ public class Menu {
 				case 1 -> {
 					System.out.println(Cores.TEXT_BLACK + "Digite o limite de crédito (R$): ");
 					limite = leia.nextFloat();
-					contas.cadastrar(new ContaCorrente(contas.gerarNumero(), agencia, tipo, titular, saldo, limite));
+					contas.cadastrar(
+							new ContaCorrente(contas.gerarNumero(), agencia, tipo, titular, saldo, limite)
+						);
 				}
 				case 2 -> {
 					System.out.println(Cores.TEXT_BLACK + "Digite o dia do aniversário da conta: ");
 					aniversario = leia.nextInt();
 					contas.cadastrar(
-							new ContaPoupanca(contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario));
+							new ContaPoupanca(
+									contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario)
+						);
 				}
 				}
 				keyPress();
@@ -117,8 +121,6 @@ public class Menu {
 
 				if (buscaConta != null) {
 
-					tipo = buscaConta.getTipo();
-
 					System.out.println(Cores.TEXT_BLACK + "Digite o número da agência: ");
 					agencia = leia.nextInt();
 					System.out.println(Cores.TEXT_BLACK + "Digite o nome do titular da conta: ");
@@ -131,24 +133,24 @@ public class Menu {
 					tipo = buscaConta.getTipo();
 
 					switch (tipo) {
-					case 1 -> {
-						System.out.println(Cores.TEXT_BLACK + "Digite o valor de limite de crédito: ");
-						limite = leia.nextFloat();
+						case 1 -> {
+							System.out.println(Cores.TEXT_BLACK + "Digite o valor de limite de crédito: ");
+							limite = leia.nextFloat();
 
-						contas.atualizar(new ContaCorrente(numero, agencia, tipo, titular, saldo, limite));
+							contas.atualizar(new ContaCorrente(numero, agencia, tipo, titular, saldo, limite));
 					}
-					case 2 -> {
-						System.out.println(Cores.TEXT_BLACK + "Digite o dia do aniversário da conta: ");
-						aniversario = leia.nextInt();
+						case 2 -> {
+							System.out.println(Cores.TEXT_BLACK + "Digite o dia do aniversário da conta: ");
+							aniversario = leia.nextInt();
 
-						contas.atualizar(new ContaPoupanca(numero, agencia, tipo, titular, saldo, aniversario));
+							contas.atualizar(new ContaPoupanca(numero, agencia, tipo, titular, saldo, aniversario));
 					}
-					default -> {
-						System.out.println(Cores.TEXT_RED + "O tipo de conta digitado é inválido.");
+						default -> {
+							System.out.println(Cores.TEXT_RED + "O tipo de conta digitado é inválido.");
 					}
 					}
 				} else
-					System.out.println(Cores.TEXT_RED + "Desculpe, o a conta informada não foi encontrada.");
+					System.out.println(Cores.TEXT_RED + "Desculpe, a conta informada não foi encontrada.");
 				keyPress();
 				break;
 			case 5:
@@ -198,7 +200,7 @@ public class Menu {
 				numero = leia.nextInt();
 				
 				System.out.println("Digite o número da conta de destino: ");
-				numero = leia.nextInt();
+				numeroDestino = leia.nextInt();
 
 				do {
 					System.out.println("Digite o valor (R$): ");
@@ -210,7 +212,7 @@ public class Menu {
 				keyPress();
 				break;
 			default:
-				System.out.println(Cores.TEXT_RED_BOLD + "\nOpção inválida!\n");
+				System.out.println(Cores.TEXT_RED_BOLD + "\nOpção inválida!\n" + Cores.TEXT_RESET);
 
 				keyPress();
 				break;
@@ -230,7 +232,7 @@ public class Menu {
 
 		try {
 
-			System.out.println(Cores.TEXT_RESET + "\n\nPressione Enter para Continuar...");
+			System.out.println(Cores.TEXT_RESET + "\n\nPressione enter para continuar...");
 			System.in.read();
 
 		} catch (IOException e) {
